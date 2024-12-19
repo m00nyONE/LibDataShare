@@ -1,6 +1,6 @@
 local NAME = "LibDataShare"
 
-local lib = {version = 3}
+local lib = {version = 4}
 _G[NAME] = lib
 
 local LMP = LibMapPing2
