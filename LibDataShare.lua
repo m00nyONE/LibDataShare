@@ -6,6 +6,8 @@ _G[NAME] = lib
 local LMP = LibMapPing2
 if LMP and not LMP.internal then LMP = nil end -- a naive check for LMP version just to avoid calling really old ones
 
+local LBG_BROADCAST_MSG_ID = 2
+
 local mapHandlers = {} -- currently registered maps
 
 local ENABLED = true -- this lib won't send or process map pings if this setting is set to false
@@ -26,7 +28,7 @@ end
 -- Each addon must acquire its own object by calling LibDataShare:RegisterMap()
 local MapHandler = {}
 function MapHandler:New(owner, mapId, dataHandler)
-	handler = {mapId = mapId, owner = owner}
+	local handler = {mapId = mapId, owner = owner}
 	setmetatable(handler, self)
 	self.__index = self
 	handler:SetDataHandler(dataHandler)
