@@ -10,6 +10,7 @@ if LMP and not LMP.internal then LMP = nil end -- a naive check for LMP version 
 
 local LGB = LibGroupBroadcast
 local LGB_MESSAGE_ID = 2
+local LGB_Handler = {}
 local LGB_Protocol = {}
 
 local mapHandlers = {} -- currently registered maps
@@ -336,7 +337,10 @@ local function OnMapPing(eventCode, pingEventType, pingType, pingTag, offsetX, o
 	end
 end
 
+--------------------------------------------------------------------------
 --------------- COMPATIBILITY LAYER WITH LibGroupBroadcast ---------------
+--------------------------------------------------------------------------
+
 local queuedMessages = {}
 
 local function sendQueuedMessages()
@@ -442,9 +446,9 @@ local function DeclareLGBProtocols()
 	local CreateArrayField = LGB.CreateArrayField
 	local CreateNumericField = LGB.CreateNumericField
 
-	local handlerId = LGB:RegisterHandler(NAME)
+	local handler = LGB:RegisterHandler(NAME)
 
-	local protocol = LGB:DeclareProtocol(handlerId, LGB_MESSAGE_ID, NAME)
+	local protocol = handler:DeclareProtocol(LGB_MESSAGE_ID, NAME)
 	protocol:AddField(CreateNumericField("mapId", {
 		minValue = 2,
 		maxValue = 38,
@@ -466,6 +470,7 @@ local function DeclareLGBProtocols()
 		error("Failed to finalize LibDataShare legacy protocol")
 	end
 
+	LGB_Handler = handler
 	LGB_Protocol = protocol
 end
 
