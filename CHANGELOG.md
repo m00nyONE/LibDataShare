@@ -1,5 +1,6 @@
 ## 2024.02.10 - @m00nyONE
 - introducing compatibility layer to LibGroupBroadcast
+- fix handler bleeding to global
 
 ## 0.0.6 - @m00nyONE
 - adjust PING_RATE for U46 because ZoS extended the time before limiting the MapPingAPI until U46 launches.
