@@ -1,5 +1,5 @@
 # !DEPRECATED! DO NOT USE THIS LIBRARY TO CREATE NEW PROJECTS
-**ZoS will limit the MapPing API in Update 46!** And this is a good thing! This addon should no longer be used for creating new projects, and all existing projects should migrate to `LibGroupBroadcast` by `@sirinister` when it's released around the end of Update 45 PTS.
+**ZoS will limit the MapPing API in Update 46!** And this is a good thing! This addon should no longer be used for creating new projects, and all existing projects should migrate to `LibGroupBroadcast` by `@sirinsidiator` when it's released around the end of Update 45 PTS.
 
 Don't worry, this does not mean the end of data sharing! ZoS introduced a new dedicated sharing API for addons in Update 45. This library will still work, but only every 10 seconds instead of every 2 seconds. However, you may get kicked for exceeding the rate limit.
 
