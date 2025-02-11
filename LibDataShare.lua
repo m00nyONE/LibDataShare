@@ -383,7 +383,6 @@ end
 
 local function mapHandler_SendData(self, data)
 	if not ENABLED then return end
-
 	LGB_Protocol:Send({
 		mapId = self.mapId,
 		data = encodeNumber(data)
