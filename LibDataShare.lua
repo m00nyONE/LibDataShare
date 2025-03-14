@@ -475,37 +475,7 @@ end
 
 --------------------------------------------------------------------------
 
-local function OnPlayerActivated()
-	-- EOL detection
-
-	if ApiVersion >= 101046 then
-		if WorldName ~= "PTS" then
-			zo_callLater(function()
-				d("|cFF00FFWarning: 'LibDataShare' is now disabled due to API restrictions in Update 46. The MapPing API only allows one ping every 10 seconds, and this library is no longer functional. Please uninstall it to avoid seeing this message.|r")
-			end, 5000)
-
-			-- remove functionality of the addon completely by overwriting all functions of the Library
-			MapHandler.QueueData = function() end
-			MapHandler.SendData = function() end
-			lib.PrepareMap = function() return false end
-			lib.IsEnabled = function() return false end
-			lib.GetMapPing = function() return 0, 0 end
-			lib.SetMapPing = function() end
-			lib.ResolveConflicts = function() end
-			OnMapPing = function() end
-			MapStateChange = function() end
-
-			return -- exit Initialize function here to not load the OnPlayerActivated function
-		end
-
-
-		-- set the ping rate to every 10seconds because of API changes in U46
-		PING_RATE = 10200
-		zo_callLater(function()
-			d("|cFF00FFImportant: Please remove 'LibDataShare' from your add-ons! The MapPing API has been rate-limited in Update 46, allowing only one ping every 10 seconds. Continuing to use this library may result in being kicked from the server.|r")
-		end, 5000)
-	end
-
+local function Legacy_MapPing_OnPlayerActivated()
 	-- Unregister map ping handler.
 	EM:UnregisterForEvent(NAME, EVENT_MAP_PING)
 
@@ -529,18 +499,20 @@ local function OnPlayerActivated()
 end
 
 local function Initialize()
-	if not LGB then
-		-- run without compatibility layer
-		EM:RegisterForEvent(NAME, EVENT_PLAYER_ACTIVATED, OnPlayerActivated)
+
+	if ApiVersion >= 101046 then
+		-- create compatibility layer
+		DeclareLGBProtocols()
+		overwriteLibFunctions()
+		overwriteMapHandlerFunctions()
+		registerSendQueuedMessages()
+		d("LibDataShare compatibility mode initiated")
+
 		return
 	end
 
-	-- create compatibility layer
-	DeclareLGBProtocols()
-	overwriteLibFunctions()
-	overwriteMapHandlerFunctions()
-	registerSendQueuedMessages()
-	d("LibDataShare compatibility mode initiated")
+	-- run without compatibility layer
+	EM:RegisterForEvent(NAME, EVENT_PLAYER_ACTIVATED, Legacy_MapPing_OnPlayerActivated)
 
 end
 

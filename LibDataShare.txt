@@ -9,7 +9,8 @@
 ## Version: dev
 ## AddOnVersion: 99999999
 ## APIVersion: 101044 101045
-## OptionalDependsOn: LibMapPing RaidNotifier BanditsUserInterface FoundryTacticalCombat TaosGroupTools POC LibGroupSocket LibGroupBroadcast
+## OptionalDependsOn: LibMapPing RaidNotifier BanditsUserInterface FoundryTacticalCombat TaosGroupTools POC LibGroupSocket
+## DependsOn: LibGroupBroadcast>=88
 ## IsLibrary: true
 ## Description: Deprecated Library for sharing small amounts of data between group members. Originally created for HodorReflexes. Please use LibGroupBroadcast after U45 instead of this Library.
 

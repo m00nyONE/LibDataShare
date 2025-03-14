@@ -1,3 +1,8 @@
+## 2024.03.14 - @m00nyONE
+- add LibGroupBroadcast as dependency
+- LibDataShare will still work with map pings until U46 arrives and then auto switch to compatibility mode for everyone!
+  - this is to avoid incompatibilities between players who have LGB installed and those who do not
+
 ## 2024.02.10 - @m00nyONE
 - introducing compatibility layer to LibGroupBroadcast
 - fix handler bleeding to global
